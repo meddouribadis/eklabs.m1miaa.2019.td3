@@ -40,7 +40,10 @@ io.sockets.on('connection', function (socket) {
 
         if(true == true){
             console.log("Yeaaaah")
-            postSSN(message);
+            postSSN(message).then(data => {
+                io.emit('cool', "Votre département : " + data.departement + " ! Votre Commune : " + data.commune);
+                console.log(data);
+            })
 
         }
         else {
@@ -52,24 +55,39 @@ io.sockets.on('connection', function (socket) {
 });
 
 async function postSSN(number){
-  
-    axios({
-        method: 'post',
-        url: 'http://localhost:3011/people',
-        data: {
-            firstName: 'Jean',
-            lastName: 'Dujardin',
-            ssn: ""+number
-        }
+
+    return new Promise(function (resolve, reject) {
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:3011/people',
+            data: {
+                firstName: 'Jean',
+                lastName: 'Dujardin',
+                ssn: ""+number
+            }
+        })
+        .then(function (reponse) {
+            console.log("Post successful" + reponse)
+        })
+        .catch(function (erreur) {
+            reject(erreur);
+        });
+
+        axios({
+            method: 'get',
+            url: 'http://localhost:3011/extra/'+number,
+            data: {
+            }
+        })
+        .then(function (reponse) {
+            resolve(reponse.data);
+        })
+        .catch(function (erreur) {
+            reject(erreur);
+        });
+
     })
-    .then(function (reponse) {
-        //On traite la suite une fois la réponse obtenue 
-        console.log(reponse.data);
-    })
-    .catch(function (erreur) {
-        //On traite ici les erreurs éventuellement survenues
-        //console.log(erreur);
-    });
 
 };
 
