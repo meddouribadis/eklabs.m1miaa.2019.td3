@@ -38,17 +38,16 @@ io.sockets.on('connection', function (socket) {
         //let secu = new SSN(message)
         io.emit('cool', message);
 
-        if(true == true){
-            console.log("Yeaaaah")
-            postSSN(message).then(data => {
-                io.emit('cool', "Votre département : " + data.departement + " ! Votre Commune : " + data.commune);
-                console.log(data);
-            })
-
-        }
-        else {
+        console.log("Un message a été reçu, nous allons le traiter :")
+        postSSN(message).then(data => {
+            console.log("SSN valide.")
+            io.emit('cool', "Votre département : " + data.departement + " ! Votre Commune : " + data.commune);
+            console.log(data);
+        })
+        .catch(err => {
+            console.log("SSN invalide.")
             io.emit('cool', "Merci d'entrer un numéro de SSN valide ! ");
-        }
+        })
 
     });
 
