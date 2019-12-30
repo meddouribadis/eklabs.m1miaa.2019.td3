@@ -18,6 +18,10 @@ app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'index.html'))
 });
 
+app.get('/res/style.css',(req,res)=>{
+    res.sendFile(path.join(__dirname+"/res/",'style.css'))
+});
+
 // ------------------------
 //
 // ------------------------
@@ -25,7 +29,7 @@ app.get('/',(req,res)=>{
 // Quand un client se connecte, on le note dans la console
 io.sockets.on('connection', function (socket) {
 
-    io.emit('cool', "Entrez votre numéro de SSN : ");
+    io.emit('system', "Entrez votre numéro de SSN : ");
 
 	socket.emit('message', 'Vous êtes bien connecté !');
 	socket.broadcast.emit('message', 'Un autre client vient de se connecter !');
@@ -41,12 +45,16 @@ io.sockets.on('connection', function (socket) {
         console.log("Un message a été reçu, nous allons le traiter :")
         postSSN(message).then(data => {
             console.log("SSN valide.")
-            io.emit('cool', "Votre département : " + data.departement + " ! Votre Commune : " + data.commune);
+            setTimeout(function(){io.emit('system', "Votre département : " + data.departement);}, 400);
+
+            setTimeout(function(){io.emit('system', "Votre Commune : " + data.commune)}, 500);
+
             console.log(data);
         })
         .catch(err => {
             console.log("SSN invalide.")
-            io.emit('cool', "Merci d'entrer un numéro de SSN valide ! ");
+            setTimeout(function(){io.emit('system', "Merci d'entrer un numéro de SSN valide ! ");}, 700);
+            
         })
 
     });
@@ -59,7 +67,7 @@ async function postSSN(number){
 
         axios({
             method: 'post',
-            url: 'http://localhost:3011/people',
+            url: 'http://api_td2:3011/people',
             data: {
                 firstName: 'Jean',
                 lastName: 'Dujardin',
@@ -75,7 +83,7 @@ async function postSSN(number){
 
         axios({
             method: 'get',
-            url: 'http://localhost:3011/extra/'+number,
+            url: 'http://api_td2:3011/extra/'+number,
             data: {
             }
         })
