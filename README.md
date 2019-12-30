@@ -1,6 +1,8 @@
 # TECHNOLOG TD3 - EKLABS M1MIAA
 
-[TOC]
+TD3
+Université d'Evry
+Professeur : Monsieur Breda
 
 ## Groupe
 
@@ -18,4 +20,10 @@
 A la racine du dossier, exécuter la commande suivante :
 
 `docker-compose build && docker-compose up`
+
+Une fois le containeur lancé, vous pouvez accédez à l'application en vous rendant sur l'adresse :
+
+```
+[Lien vers le tchat!](http://localhost:3011)
+```
 
