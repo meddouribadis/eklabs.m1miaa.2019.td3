@@ -40,23 +40,24 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('message', function (message) {
         //let secu = new SSN(message)
-        io.emit('cool', message);
-
-        console.log("Un message a été reçu, nous allons le traiter :")
-        postSSN(message).then(data => {
-            console.log("SSN valide.")
-            setTimeout(function(){io.emit('system', "Votre département : " + data.departement);}, 400);
-
-            setTimeout(function(){io.emit('system', "Votre Commune : " + data.commune)}, 500);
-
-            console.log(data);
-        })
-        .catch(err => {
-            console.log("SSN invalide.")
-            setTimeout(function(){io.emit('system', "Merci d'entrer un numéro de SSN valide ! ");}, 700);
+        if(message !== ""){
+            io.emit('cool', message);
             
-        })
+            console.log("Un message a été reçu, nous allons le traiter :")
+            postSSN(message).then(data => {
+                console.log("SSN valide.")
+                setTimeout(function(){io.emit('system', "Votre département : " + data.departement);}, 400);
 
+                setTimeout(function(){io.emit('system', "Votre Commune : " + data.commune)}, 500);
+
+                console.log(data);
+            })
+            .catch(err => {
+                console.log("SSN invalide.")
+                setTimeout(function(){io.emit('system', "Merci d'entrer un numéro de SSN valide ! ");}, 700);
+                
+            })
+        }
     });
 
 });

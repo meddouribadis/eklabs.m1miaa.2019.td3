@@ -3,6 +3,7 @@
 <head>
     <title>SSN Checker</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/res/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -11,11 +12,19 @@
 </head>
 <body>
 
-<div class="bg-image"></div>
-<ul id="messages"></ul>
-<form action="" class="formSend">
-    <input id="m" autocomplete="off" type="text" placeholder="Saisissez votre message ici :"/><button class="btn btn-primary">Send</button>
-</form>
+<div class="msgs container">
+    <div class="row"><ul class="col" id="messages"></ul></div>
+</div>
+
+<div class="row">
+    <form action="" class="formSend fixed-bottom">
+
+        <input id="m" autocomplete="off" type="text" placeholder="Saisissez votre message ici :"/>
+        <button class="btn btn-primary">Envoyer <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+
+    </form>
+</div>
+
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
@@ -25,8 +34,18 @@
 
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+    $(document).ready(function(){
+        var hauteur = $('#m').height();
+        console.log(hauteur);
+        hauteur += 63;
+        var propertiesH = "calc(100% - "+ hauteur +"px)";
+        console.log(propertiesH);
+        $(".msgs").css("height", propertiesH);
+    });
+    
     $(function () {
         var socket = io();
+
         $('form').submit(function(e){
             e.preventDefault(); // prevents page reloading
             socket.emit('message', $('#m').val());
@@ -36,11 +55,14 @@
         socket.on('cool', function(msg){
             $('#messages').append($('<div class="user">').append($('<li>').text(msg)));
             $('#messages').append($('<hr>'));
+            $('.msgs').scrollTop($('.msgs').prop("scrollHeight"));
+            console.log($('#m').height() + " dddd")
         });
 
         socket.on('system', function(msg){
             $('#messages').append($('<div class="system">').append($('<li>').text(msg)));
             $('#messages').append($('<hr>'));
+            $('.msgs').scrollTop($('.msgs').prop("scrollHeight"));
         });
 
         socket.on('hi', function(msg){
