@@ -112,8 +112,10 @@ app.get('/extra', (req, res) => {
         let arrayPeople = [];
 
         async.each(people, (person, callback) => {
+
             person.toWebFormat().then(personUpdated => {
                 arrayPeople.push(personUpdated)
+                arrayPeople.push(person._id)
                 callback()
             }),(err) => {
                 Utils.error("failed to WebFormat")
@@ -128,7 +130,7 @@ app.get('/extra/:ssn', (req, res) => {
 
     mongoose.model('Person').findOne({'ssn' : req.params.ssn}).then((result) => {
         let arrayPeople = [];
-
+        console.log("Yeah " + result._id);
         result.toWebFormat().then(resultNew =>{ 
                 console.log(resultNew)
                 arrayPeople.push(resultNew)
