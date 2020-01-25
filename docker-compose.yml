@@ -2,20 +2,16 @@ version: "3.7"
 services:
   tchat:
     build: 
-      context: './td3_tchat/docker/node'
+      context: './td3_tchat'
     container_name: td3chat_web
-    volumes:
-      - ./td3_tchat/:/web/app/
     ports:
       - "3010:3010"
     depends_on: 
       - api_td2
   api_td2:
     build: 
-      context: './api_ssn/docker/node'
+      context: './api_ssn'
     container_name: td2api_web
-    volumes:
-      - ./api_ssn/:/web/api/
     ports:
       - "3011:3011"
     depends_on: 
