@@ -46,10 +46,18 @@ io.sockets.on('connection', function (socket) {
         io.emit('cool', message);
         msgTemp = message;
 
-        if(step == 1 && (msgTemp == "oui" || msgTemp == "non")){
+        if(step == 1 && msgTemp == "oui"){
             step += 1;
             msgTemp = "";
-            msgTemp == "oui" ? save = true : save = false;
+            save = true;
+            console.log("Var save = " + save);
+            setTimeout(function(){io.emit('system', "Quel est votre nom ?");}, 400);
+        }
+
+        if(step == 1 && msgTemp == "non"){
+            step += 1;
+            msgTemp = "";
+            save = false;
             console.log("Var save = " + save);
             setTimeout(function(){io.emit('system', "Quel est votre nom ?");}, 400);
         }
@@ -71,6 +79,7 @@ io.sockets.on('connection', function (socket) {
                 setTimeout(function(){io.emit('system', "Votre Commune : " + data.commune)}, 500);
 
                 console.log(data);
+                console.log(save);
                 if(save == false){
                     deleteSSN(data.idPers);
                 }
