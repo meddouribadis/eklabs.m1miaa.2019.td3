@@ -11,6 +11,10 @@ let io = require('socket.io')(http);
 let cors= require('cors');
 
 
+// Fichiers statiques
+app.use(express.static(__dirname + '/res/'));
+
+
 // Autoriser des requetes de plusieurs domaines
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
