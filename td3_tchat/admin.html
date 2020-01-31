@@ -16,7 +16,9 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+  
 
 
   <!-- Custom styles for this template -->
@@ -32,8 +34,9 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">TD3 - Panel</div>
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Liste</a>
-        
+        <a href="https://github.com/s4sixty" target="_blank" class="list-group-item list-group-item-action bg-light"><i class="fa fa-github" aria-hidden="true"></i>>AMARA Samir</a>
+        <a href="https://github.com/meddouribadis" target="_blank" class="list-group-item list-group-item-action bg-light"><i class="fa fa-github" aria-hidden="true"></i>>MEDDOURI Badis</a>
+        <a href="https://github.com/timorhim" target="_blank" class="list-group-item list-group-item-action bg-light"><i class="fa fa-github" aria-hidden="true"></i>>TIMOR Brahim</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -105,6 +108,23 @@
       $("#wrapper").toggleClass("toggled");
     });
 
+    function supprimer(id) {
+      if(confirm("Vouez vous supprimez cet élement ?")) {
+          jQuery.ajax( {
+            url :"http://localhost:3011/people/"+id,
+            type: "DELETE",
+            dataType: "json",
+            success:function(data, status) {
+              alert("élément supprimé !");
+              location.reload();
+            },
+            error:function(resultat, statut, erreur) {
+              console.log(erreur);
+            }
+        })
+    }
+    }
+
     // A $( document ).ready() block.
 $( document ).ready(function() {
     console.log( "ready!" );
@@ -117,7 +137,8 @@ $( document ).ready(function() {
           console.log(data);
           var trHTML = '';
           $.each(data, function(i, item) {
-            trHTML += '<tr><td>' + item._id + '</td><td>' + item.lastName + '</td>'+ '</td><td>' + item.firstName + '</td>'+ '</td><td>' + item.ssn + '</td>'+ '</td><td><button type="button" class="btn btn-danger">Supprimer</button> </td>'+'</tr>';
+            trHTML += '<tr><td>' + item._id + '</td><td>' + item.lastName + '</td>'+ '</td><td>' + item.firstName + '</td>'+
+            '</td><td>' + item.ssn + '</td>'+ '</td><td><button id="'+ item._id +'" type="button" onClick="supprimer(this.id)" class="btn btn-danger">Supprimer</button> </td>'+'</tr>';
           });
           $('#tableau').append(trHTML);
         },
