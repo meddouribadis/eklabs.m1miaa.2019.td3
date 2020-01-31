@@ -24,6 +24,7 @@ A la racine du dossier, exécuter la commande suivante :
 Une fois le containeur lancé, vous pouvez accédez à l'application en vous rendant sur l'adresse :
 
 [Lien vers le tchat!](http://localhost:3010)
+
 [Lien vers l'admin panel!](http://localhost:3010/admin)
 
 ## Dockerhub
