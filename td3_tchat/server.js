@@ -18,6 +18,10 @@ app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'index.html'))
 });
 
+app.get('/admin',(req,res)=>{
+    res.sendFile(path.join(__dirname,'admin.html'))
+});
+
 app.get('/res/style.css',(req,res)=>{
     res.sendFile(path.join(__dirname+"/res/",'style.css'))
 });
