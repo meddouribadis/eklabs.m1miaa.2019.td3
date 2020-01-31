@@ -22,6 +22,14 @@ app.get('/res/style.css',(req,res)=>{
     res.sendFile(path.join(__dirname+"/res/",'style.css'))
 });
 
+app.get('/admin',(req,res)=>{
+    res.sendFile(path.join(__dirname,'admin.html'))
+});
+
+app.get('/res/admin.js',(req,res)=>{
+    res.sendFile(path.join(__dirname+"/res/",'admin.js'))
+});
+
 // ------------------------
 //
 // ------------------------
