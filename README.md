@@ -28,4 +28,4 @@ Une fois le containeur lancé, vous pouvez accédez à l'application en vous ren
 [Lien vers l'admin panel!](http://localhost:3010/admin)
 
 ## Dockerhub
-[Lien vers de notre Docker image sur le Docker Hub](https://hub.docker.com/repository/docker/meddouribadis/eklabsm1miaa2019td3_tchat)
+[Lien vers notre Docker image sur le Docker Hub](https://hub.docker.com/repository/docker/meddouribadis/eklabsm1miaa2019td3_tchat)
