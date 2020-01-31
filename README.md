@@ -24,3 +24,6 @@ A la racine du dossier, exécuter la commande suivante :
 Une fois le containeur lancé, vous pouvez accédez à l'application en vous rendant sur l'adresse :
 
 [Lien vers le tchat!](http://localhost:3010)
+
+## Dockerhub
+[Lien vers de notre Docker image sur le Docker Hub](https://hub.docker.com/repository/docker/meddouribadis/eklabsm1miaa2019td3_tchat)
